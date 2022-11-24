@@ -3,9 +3,14 @@ name: Production Release On Vercel ✨
 on:
   release:
     types: [published]
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
-      - run: curl -X POST -d {} https://api.vercel.com/v1/integrations/deploy/prj_8UhMB6W6nGL3KYLzZHWt9kg4O5dA/SzufjfG9z5
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1
+        with:
+          ALIAS_DOMAINS: ubiquitous-meme.vercel.app
