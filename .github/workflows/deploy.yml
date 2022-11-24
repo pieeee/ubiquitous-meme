@@ -12,9 +12,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Deploy to Vercel Action
         uses: BetaHuhn/deploy-to-vercel-action@v1
+      - uses: actions/vercel-deployment@0.5.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          ALIAS_DOMAINS: ubiquitous-meme.vercel.app
+          vercelToken: ${{ secrets.VERCEL_TOKEN }}
+          vercelOrgId: ${{ secrets.VERCEL_ORG_ID }}
+          vercelProjectId: ${{ secrets.VERCEL_PROJECT_ID }}
+          githubToken: ${{ secrets.PAT }}
+          sourceDirectory: "src"
+          assignDomain: "ubiquitous-meme.vercel.app"
