@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          v5.0.0
+          v5.0.1
         </a>
       </header>
     </div>
