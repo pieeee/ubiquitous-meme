@@ -13,4 +13,8 @@ jobs:
       - name: Deploy to Vercel Action
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VRCL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           ALIAS_DOMAINS: ubiquitous-meme.vercel.app
