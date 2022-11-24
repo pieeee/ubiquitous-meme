@@ -4,7 +4,7 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
   release:
-    types: [published]
+    types: [published, edited]
 jobs:
   Deploy-Latest-Release-Vercel:
     runs-on: ubuntu-latest
