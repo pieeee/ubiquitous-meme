@@ -6,20 +6,20 @@ on:
   release:
     types: [published]
 jobs:
-  Deploy-Production:
+  Deploy-Latest-Release-Vercel:
     runs-on: ubuntu-latest
     steps:
-      - name: get latest release with tag
+      - name: Get latest release with tag 🔍
         id: latestrelease
         run: |
-          echo "::set-output name=releasetag::$( curl \
+          echo "releasetag=$( curl \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/pieeee/ubiquitous-meme/releases/latest | jq '.tag_name' | sed 's/\"//g')"
-      - name: confirm release tag
+          https://api.github.com/repos/pieeee/ubiquitous-meme/releases/latest | jq '.tag_name' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+      - name: Confirm release tag ✅
         run: |
           echo ${{ steps.latestrelease.outputs.releasetag }}
-      - name: tagcheckout
+      - name: Tag checkout 🏷
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.latestrelease.outputs.releasetag }}
@@ -27,9 +27,9 @@ jobs:
         with:
           node-version: 16
           cache: "npm"
-      - name: Install Vercel CLI
+      - name: Install Vercel CLI 📦
         run: npm install --global vercel@canary
-      - name: Pull Vercel Environment Information
+      - name: Pull Vercel Environment Information 📜
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
+      - name: Deploy Project Artifacts to Vercel 🚀
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
