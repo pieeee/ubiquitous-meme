@@ -1,0 +1,17 @@
+name: Production Release On Vercel ✨
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  workflow_dispatch:
+    inputs:
+      version: 
+        description: 'The version you want to release'
+        required: true
+        type: string
+jobs:
+  Deploy-Latest-Release-Vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tag checkout 🏷
+        run: echo "${{ github.event.inputs.version }}"
