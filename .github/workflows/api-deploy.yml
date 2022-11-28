@@ -14,4 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Tag checkout 🏷
-        run: echo "${{ github.event.inputs.version }}"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.version }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+      - name: Install Vercel CLI 📦
+        run: npm install --global vercel@canary
+      - name: Pull Vercel Environment Information 📜
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel 🚀
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
